@@ -1,0 +1,203 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE work.mytype.ALL;
+
+ENTITY Projet_Robotique IS
+	PORT (
+		CLOCK_50	: in  std_logic;
+		KEY : in std_logic_vector(3 downto 0);
+		GPIO_1 : inout std_logic_vector(35 downto 0);
+		LEDR : out std_LOGIC_VECTOR(9 downto 0)
+	);
+END ENTITY;
+
+ARCHITECTURE arc OF Projet_Robotique IS
+--	constant BRG : tBRG (0 to 7):=(
+--											"000000000000000000000000",
+--											"100000000000000011100010",
+--											"000000000000000000001100",
+--											"101010100000000011100000",
+--											"000000101010101000100000",
+--											"000100100100001110100000",
+--											"011011010101011011010101",
+--											"000000011100000011100000"
+--											);
+
+--constant Matrice : tMatrice :=(("11","11","00","00","00","00","00","00"),
+--											 ("11","11","00","00","00","00","00","00"),
+--											 ("11","11","00","00","11","00","00","00"),
+--											 ("11","11","00","11","00","00","11","00"),
+--											 ("11","11","00","11","00","00","00","00"),
+--											 ("11","11","00","11","00","00","11","00"),
+--											 ("11","11","00","00","11","11","00","00"),
+--											 ("11","11","00","00","00","00","00","00"));
+
+--constant Matrice : tMatrice :=(("00","00","01","00","00","10","00","00"),
+--										 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"),
+--											 ("00","00","01","00","00","10","00","00"));
+
+--constant Matrice : tMatrice :=(("11","00","01","00","00","10","00","00"),
+--										 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"),
+--											 ("11","00","01","00","00","10","00","00"));
+
+	signal Matrice : tMatrice;
+	Signal inter_matrice : tMatrice;
+	signal change : std_logic;
+	constant rose : std_logic_vector(23 downto 0) := "000000101010101000100000";
+	constant bleu : std_logic_vector(23 downto 0) := "101010100000000011100000";
+--	component pilote_barette is
+--		port (
+--			clk_bar, iStart_bar : in std_logic;
+--			GRB_bar : in std_logic_vector(191 downto 0);
+--			oBIT_bar : out std_logic_vector(7 downto 0)
+--		);
+--		end component;
+
+--	component pilote_pixel is
+--		PORT (
+--				iStart, clk : in std_logic;
+--				GRB : in std_logic_vector(23 downto 0);
+--				oBIT : out std_logic
+--		);
+--	end component;
+
+--	component pilote_barre is
+--		PORT (
+--					iStart, clk : in std_logic;
+--					GRB : in tBRG;
+--					oBIT : out std_logic
+--		);
+--	end component;
+	
+	component pilote_matrice is
+		PORT (
+					iStart, clk : in std_logic;
+					Mat : in tMatrice;
+					oBIT : out std_logic
+		);
+	end component;
+	component pilote_curseur IS
+	PORT
+	(
+		oA, oB, ipush, clk, reset	: IN STD_LOGIC;
+		oValid, oChange : OUT STD_LOGIC;
+		--indice: IN std_logic_vector(2 downto 0);
+		indice_sorti : OUT std_logic_vector(2 downto 0)
+	);
+	END component;
+	component pilote_jeu IS
+	PORT (
+				iValid, clk, rst, iChange : in std_logic;
+				indice : in std_logic_vector(2 downto 0);
+				oMat : out tMatrice;
+				oplayer: out std_logic_vector(1 downto 0);
+				oValid : out std_logic
+	);
+	END component;
+	COMPONENT diviseur IS
+	PORT
+	(
+		clock		: IN STD_LOGIC ;
+		cout		: OUT STD_LOGIC ;
+		q		: OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
+	);
+	END COMPONENT;
+	COMPONENT detect_win IS
+	PORT (
+				clk, rst: in std_logic;
+				iMat : in tMatrice;
+				oMat : out tMatrice
+	);
+	END COMPONENT;
+	
+	SIGNAL inter_Valid : std_LOGIC;
+	SIGNAL indice_inter: std_logic_vector(2 downto 0):= "000";
+	SIGNAL q : std_logic_vector(15 downto 0);
+	Signal Valid : std_logic;
+	
+BEGIN
+
+
+--inter_data <= "111000000000000000000000";
+GPIO_1(6)<='0';
+GPIO_1(10)<='0';
+--
+--	U1:pilote_pixel
+--		PORT MAP(
+--			clk => CLOCK_50,
+--			iStart => KEY(0),
+--			GRB => inter_data,
+--			oBit => GPIO_1(8)
+--		);
+
+--	U2:pilote_barre
+--		PORT MAP(
+--			clk => CLOCK_50,
+--			iStart => KEY(0),
+--			GRB => BRG,
+--			oBIT => GPIO_1(8)
+--		);
+	div: diviseur port map 
+		(
+		clock => CLOCK_50,
+		q => q
+		);
+	U1:pilote_curseur
+		PORT MAP
+		(
+		reset => KEY(0),
+		oA => GPIO_1(0),
+		ipush => GPIO_1(2),
+		oB => GPIO_1(1),
+		clk => q(15),
+		--indice => indice_inter,
+		indice_sorti => indice_inter,
+		oValid => inter_Valid,
+		oChange => change
+		);
+	U2: pilote_jeu
+		PORT MAP
+		(
+		iValid => inter_Valid,
+		iChange => change,
+		clk => q(15),
+		rst => KEY(0),
+		indice => indice_inter,
+		oMat  => Matrice,
+		oplayer => LEDR(9 downto 8),
+		oValid => Valid
+		);
+	U3: detect_win
+		PORT MAP 
+		(
+				clk => q(15),
+				rst => KEY(0),
+				iMat => Matrice,
+				oMat => inter_matrice
+		);
+	U4:pilote_matrice
+		PORT MAP(
+			clk => CLOCK_50,
+			iStart => Valid,                      
+			--iStart => KEY(2),
+			oBIT => GPIO_1(8),
+			Mat => inter_matrice
+		);
+	LEDR(2 downto 0) <= indice_inter;
+	LEDR(4) <= inter_Valid;
+	GPIO_1(35) <= change;
+	
+END arc;
+
+
