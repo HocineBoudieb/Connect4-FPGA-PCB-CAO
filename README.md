@@ -16,7 +16,7 @@ The project employs VHDL for FPGA development, integrating digital design princi
 ## Gallery
 
 ![Project Image](media/project-image1.jpg)
-![Board Design](media/board-design.jpg)
+![Board Design](media/PCB.png)
 ![3D Part Image](media/3D-part-image.jpg)  <!-- Adjust file name as per actual image -->
 
 ### Video Demonstration
