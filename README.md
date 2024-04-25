@@ -21,8 +21,12 @@ The project employs VHDL for FPGA development, integrating digital design princi
 
 ### Video Demonstration
 
-For a detailed video demonstration of the game in action, see the video file:
-[Connect 4 Game Video](media/video.mp4)
+For a detailed video demonstration of the game in action, see the video:
+
+
+https://github.com/HocineBoudieb/Connect4-FPGA-PCB-CAO/assets/36864416/2671d108-82bc-407a-ac71-dce34e6fa8cb
+
+
 
 ## Hardware Requirements
 
