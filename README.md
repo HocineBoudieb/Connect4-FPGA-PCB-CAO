@@ -11,7 +11,7 @@ The project employs VHDL for FPGA development, integrating digital design princi
 - **/Quartus**: Contains Quartus II project files.
 - **/media**: Media files including images and videos showcasing the project.
 - **AltiumDesigner.zip**: PCB design files in Altium Designer format.
-- **SolidWorks Files**: Includes all SLDPRT files for 3D modeling of components.
+- **Puissance4HocineInès.SLDPRT**: Includes all SLDPRT files for 3D modeling of components.
 
 ## Gallery
 
@@ -22,7 +22,7 @@ The project employs VHDL for FPGA development, integrating digital design princi
 ### Video Demonstration
 
 For a detailed video demonstration of the game in action, see the video file:
-[Connect 4 Game Video](media/video.MOV)
+[Connect 4 Game Video](media/video.mp4)
 
 ## Hardware Requirements
 
