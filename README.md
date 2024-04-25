@@ -33,7 +33,7 @@ https://github.com/HocineBoudieb/Connect4-FPGA-PCB-CAO/assets/36864416/2671d108-
 
 ## Hardware Requirements
 
-- FPGA development board (specific model not specified)
+- FPGA development board (DE0 nano)
 - Standard hardware for PCB manufacturing based on the provided Altium files
 - SolidWorks compatible hardware for 3D modeling
 
