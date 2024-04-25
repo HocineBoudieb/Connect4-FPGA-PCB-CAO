@@ -22,7 +22,7 @@ The project employs VHDL for FPGA development, integrating digital design princi
 ### Video Demonstration
 
 For a detailed video demonstration of the game in action, see the video file:
-[Connect 4 Game Video](media/game-video.mp4)
+[Connect 4 Game Video](media/video.mov)
 
 ## Hardware Requirements
 
