@@ -14,10 +14,12 @@ The project employs VHDL for FPGA development, integrating digital design princi
 - **Puissance4HocineInès.SLDPRT**: Includes all SLDPRT files for 3D modeling of components.
 
 ## Gallery
+<p align="center">
+  <img src="media/Sheet.png" width="400" alt="Project Image">
+  <img src="media/PCB.png" width="400" alt="Board Design">
+  <img src="media/irl_pcb.jpg" width="400" alt="3D Part Image">
+</p>
 
-![Project Image](media/Sheet.png)
-![Board Design](media/PCB.png)
-![3D Part Image](media/irl_pcb.jpg) 
 
 ### Video Demonstration
 
