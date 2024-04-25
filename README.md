@@ -17,7 +17,7 @@ The project employs VHDL for FPGA development, integrating digital design princi
 <p align="center">
   <img src="media/Sheet.png" width="400" alt="Project Image">
   <img src="media/PCB.png" width="400" alt="Board Design">
-  <img src="media/irl_pcb.jpg" width="400" alt="3D Part Image">
+  <img src="media/irl_pcb1.jpg" width="400" alt="3D Part Image">
 </p>
 
 
